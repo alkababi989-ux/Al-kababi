@@ -29,10 +29,22 @@ export default function ProductGrid() {
     async function run() {
       setLoading(true);
       try {
-        const res = await fetch(`/api/products?${qs}`, { cache: "no-store" });
-        const data = await res.json();
-        if (!ignore) setItems(data.items || []);
+        // Only make API calls on the client side
+        if (typeof window !== 'undefined') {
+          const res = await fetch(`/api/products?${qs}`, { cache: "no-store" });
+          if (res.ok) {
+            const data = await res.json();
+            if (!ignore) setItems(data.items || []);
+          } else {
+            console.warn('Failed to fetch products:', res.status);
+            if (!ignore) setItems([]);
+          }
+        } else {
+          // Server-side: return empty array
+          if (!ignore) setItems([]);
+        }
       } catch (e) {
+        console.warn('Error fetching products:', e);
         if (!ignore) setItems([]);
       } finally {
         if (!ignore) setLoading(false);
