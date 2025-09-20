@@ -1,0 +1,335 @@
+now i want to put this data in my Product table....
+1-
+category: Traditional
+Name: Beef Nehari
+price: $15.00
+image: assets/img/products/nehari.png
+2-
+category: Traditional
+Name: Beef Haleem
+price: $15.00
+image: assets/img/products/Beef Haleem.jpg
+3-
+category: Traditional
+Name: Chana Masala
+price: $15.00
+image: assets/img/products/chana-masala.jpg
+4-
+category: Traditional
+Name: Butter Chicken
+price: $15.00
+image: assets/img/products/chicken-butter.jpg
+
+
+
+
+5-
+category: Fast Food
+Name: Beef  Classic Burger 
+price: $9.00
+image: assets/img/products/Chicken Classic Burger.jpeg
+6-
+category: Fast Food
+Name: Beef Platinum Burger
+price: $12.00
+image: assets/img/products/Beef Platinum Burger.webp
+7-
+category: Fast Food
+Name: Beef Belt Buster Burger
+price: $14.00
+image: assets/img/products/Beef Belt Buster Burger.webp
+8-
+category: Fast Food
+Name: Chicken Classic Burger
+price: $9.00
+image: assets/img/products/Chicken Classic Burger.jpeg
+
+
+
+
+9-
+category: TANDOOR 
+Name: Sesame Naan
+price: $3.00
+image: assets/img/products/Sesame Naan.jpg
+10-
+category: TANDOOR
+Name: Plain Naan
+price: $2.00
+image: assets/img/products/Plain Naan.jpeg
+11-
+category: TANDOOR
+Name: Roghni Naan
+price: $2.00
+image: assets/img/products/Roghni Naan.jpeg
+12-
+category: TANDOOR
+Name:  Garlic Naan
+price: $3.00
+image: assets/img/products/Garlic Naan.jpg
+13-
+category: TANDOOR
+Name: Puri Paratha
+price: $4.00
+image: assets/img/products/Puri Paratha.jpg
+
+
+14-
+category: STARTER
+Name: French Fries
+price: $6.00
+Largeprice: $7.00
+image: assets/img/products/french-fry.png
+15-
+category: STARTER
+Name: Mayo Garlic Fries
+price: $7.00
+Largeprice: $8.00
+image: assets/img/products/Mayo Garlic Fries.jpeg  
+16-
+category: STARTER
+Name:  Chicken Nuggets 
+price: $6.50
+image: assets/img/products/Chicken Nuggets.png
+17-
+category: STARTER
+Name: Pizza Fries
+price: $10.00
+image: assets/img/products/Pizza Fries.jpg
+18-
+category: STARTER
+Name: Mozzarella Stick
+price: $7.00
+image: assets/img/products/Mozzarella Stick.jpg
+19-
+category: STARTER
+Name: Onion Ring 
+price: $7.00
+image: assets/img/products/Onion Ring.jpg
+20-
+category: STARTER
+Name:   Samosa
+price: $2.00
+image: assets/img/products/Samosa.jpeg
+
+
+21-
+category: GYRO WRAP
+Name:   Chicken Gyro
+price: $9.00
+image: assets/img/products/Chicken Gyro.jpg
+22-
+category: GYRO WRAP
+Name:   Gyro Meat( Lamb )
+price: $9.00
+image: assets/img/products/Gyro Meat( Lamb ).jpeg
+23-
+category: GYRO WRAP
+Name:   Falafel Gyro
+price: $9.00
+image: assets/img/products/Falafel Gyro.webp
+
+24-
+category: SALAD BAR
+Name:   Raita Bowl
+price: $2.00
+image: assets/img/products/Raita Bowl.jpg
+25-
+category: SALAD BAR
+Name:   Salad Bowl
+price: $5.00
+image: assets/img/products/salad.png
+
+26-
+category: Beverage 
+Name:   Soda
+price: $1.50
+image: assets/img/products/Soda.jpg
+27-
+category: Beverage 
+Name:   Mango Lassi
+price: $5.00
+image: assets/img/products/Mango Lassi.jpg
+category: Beverage 
+Name:   Snapple
+price: $3.00
+image: assets/img/products/Snapple.jpg
+29-
+category: Beverage 
+Name:   Mineral Water
+price: $1.50
+image: assets/img/products/Mineral Water.jpg
+
+
+//----------------have to add the following items Images----------------
+
+30-
+category: BBQ
+Name: Bihari Tikka Leg ( 2 pcs )
+price: $7.00
+image: assets/img/products/Bihari Tikka Leg.jpeg
+31-
+category: BBQ
+Name: Chicken Bihari Kabab
+price: $12.00
+image: assets/img/products/Chicken Bihari Kabab.jpeg
+32-
+category: BBQ
+Name: Chicken Tikka Tandoori
+price: $13.00
+image: assets/img/products/Chicken Tikka Tandoori.jpeg
+33-
+category: BBQ
+Name: Lamb Chops ( 3 pcs )
+price: $15.00
+image: assets/img/products/Lamb Chops.jpg
+34-
+category: BBQ
+Name: Chicken Malai Boti
+price: $12.00
+image: assets/img/products/Chicken Malai Boti.jpg
+35-
+category: BBQ
+Name: Chicken Chapli Kabab ( 2 pcs )
+price: $12.00
+image: assets/img/products/Chicken Chapli Kabab.jpg
+36-
+category: BBQ
+Name: Beef Bihari Kabab
+price: $15.00
+image: assets/img/products/Beef Bihari Kabab.jpeg
+37-
+category: BBQ
+Name: Beef Gola Kabab
+price: $13.00
+image: assets/img/products/Beef Gola Kabab.jpg
+38-
+category: BBQ
+Name: Chicken Seekh Kabab ( 2 pcs )
+price: $7.00
+image: assets/img/products/Chicken Seekh Kabab.jpeg
+39-
+category: GYRO COMBOS
+Name: Chicken Gyro Platter
+price: $11.00
+image: assets/img/products/Chicken Gyro Platter.jpg
+40-
+category: GYRO COMBOS
+Name: Lamb Gyro Platter
+price: $11.00
+image: assets/img/products/Lamb Gyro Platter.jpeg
+41-
+category: GYRO COMBOS
+Name: Falafel Platter
+price: $11.00
+image: assets/img/products/Falafel Platter.jpg
+42-
+category: GYRO COMBOS
+Name: Mix Gyro Platter ( Chicken / Lamb )
+price: $12.00
+image: assets/img/products/Mix Gyro Platter.jpeg
+43-
+category: GYRO COMBOS
+Name: Supreme Platter
+price: $15.00
+image: assets/img/products/Supreme Platter.jpeg
+44-
+category: BBQ PLATTER
+Name: Chicken Tikka Tandoori With Rice
+price: $16.00
+image: assets/img/products/Chicken Tikka Tandoori With Rice.jpg
+45-
+category: BBQ PLATTER
+Name: Chicken Malai Boti With Rice
+price: $15.00
+image: assets/img/products/Chicken Malai Boti With Rice.jpg
+46-
+category: BBQ PLATTER
+Name: Chicken Bihari Kabab With Rice
+price: $15.00
+image: assets/img/products/Chicken Bihari Kabab With Rice.jpg
+47-
+category: BBQ PLATTER
+Name: Chicken Seekh Kabab With Rice
+price: $15.00
+image: assets/img/products/Chicken Seekh Kabab With Rice.jpeg
+48-
+category: BBQ PLATTER
+Name: Beef Bihari Kabab With Rice
+price: $18.00
+image: assets/img/products/Beef Bihari Kabab With Rice.jpg
+49-
+category: BBQ PLATTER
+Name: Beef Gola Kabab With Rice
+price: $16.00
+image: assets/img/products/Beef Gola Kabab With Rice.jpeg
+50-
+category: BBQ PLATTER
+Name: Lamb Chops Platter With Rice
+price: $18.00
+image: assets/img/products/Lamb Chops Platter With Rice.jpeg
+51-
+category: BBQ ROLL
+Name: Chicken Bihari Chutney Roll
+price: $10.00
+image: assets/img/products/Chicken Bihari Chutney Roll.jpeg
+52-
+category: BBQ ROLL
+Name: Chicken Mayo Garlic Roll
+price: $10.00
+image: assets/img/products/Chicken Mayo Garlic Roll.jpeg
+53-
+category: BBQ ROLL
+Name: Beef Bihari Chutney Roll
+price: $11.00
+image: assets/img/products/Beef Bihari Chutney Roll.jpeg
+54-
+category: BBQ ROLL
+Name: Beef Mayo Garlic Roll
+price: $11.00
+image: assets/img/products/Beef Mayo Garlic Roll.jpg
+55-
+category: BBQ ROLL
+Name: Malai Boti Chutney Roll
+price: $10.00
+image: assets/img/products/Malai Boti Chutney Roll.jpg
+56-
+category: BBQ ROLL
+Name: Malai Mayo Garlic Roll
+price: $10.00
+image: assets/img/products/Malai Mayo Garlic Roll.jpeg
+57-
+category: BBQ ROLL
+Name: Gola Kabab Chutney Roll
+price: $11.00
+image: assets/img/products/Gola Kabab Chutney Roll.jpg
+58-
+category: BBQ ROLL
+Name: Gola Kabab Mayo Roll
+price: $11.00
+image: assets/img/products/Gola Kabab Mayo Roll.jpg
+59-
+category: Mediterranean
+Name: Chicken Shawarma Wrap
+price: $10.00
+image: assets/img/products/Chicken Shawarma Wrap.jpg
+60-
+category: Mediterranean
+Name: Lamb Shawarma Wrap
+price: $10.00
+image: assets/img/products/Lamb Shawarma Wrap.jpeg
+61-
+category: Special Platter
+Name: MIX BBQ PLATTER
+price: $50.00
+image: assets/img/products/MIX BBQ PLATTER.webp
+62-
+category: Special Platter
+Name: MIX BBQ PLATTER ( With Rice )
+price: $60.00
+image: assets/img/products/MIX BBQ PLATTER With Rice.jpeg
+
+
+
+
+

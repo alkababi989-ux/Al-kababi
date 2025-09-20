@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
-import { Fragment, useState } from "react";
+import { useCart } from "@/components/CartProvider";
+import { Fragment, useState, useEffect } from "react";
 
 const Header = ({ header }) => {
   switch (header) {
@@ -24,7 +25,7 @@ const Menus = () => {
 
       {/* Shop */}
       <li className="has-dropdown">
-        <Link href="/shop">
+        <Link href="/shop-left-sidebar">
           Food Menu
           <i className="fas fa-angle-down" />
         </Link>
@@ -46,6 +47,13 @@ const Menus = () => {
 
 const Header1 = () => {
   const [toggle, setToggle] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { items, subtotal, remove } = useCart();
+  const itemCount = items.reduce((s,i)=>s+i.quantity,0);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
     <Fragment>
       <header className="section-bg">
@@ -98,26 +106,29 @@ const Header1 = () => {
                   <div className="menu-cart">
                     <div className="cart-box">
                       <ul>
-                        <li>
-                          <img src="assets/img/shop-food/s2.png" alt="image" />
-                          <div className="cart-product">
-                            <a href="#0">grilled chiken</a>
-                            <span>168$</span>
-                          </div>
-                        </li>
-                      </ul>
-                      <ul>
-                        <li className="border-none">
-                          <img src="assets/img/shop-food/s3.png" alt="image" />
-                          <div className="cart-product">
-                            <a href="#0">grilled chiken</a>
-                            <span>168$</span>
-                          </div>
-                        </li>
+                        {!mounted ? (
+                          <li className="border-none"><div className="cart-product"><span>Loading...</span></div></li>
+                        ) : (
+                          <>
+                            {items.slice(0, 4).map((it, idx) => (
+                              <li key={it.productId} className={idx === items.length - 1 ? "border-none" : ""}>
+                                <img src={it.imageUrl || "assets/img/food/burger-2.png"} alt="image" />
+                                <div className="cart-product">
+                                  <a href="/shop-left-sidebar">{it.name}</a>
+                                  <span>${(it.unitPrice * it.quantity).toFixed(2)}</span>
+                                </div>
+                                <button className="cart-remove" onClick={() => remove(it.productId)} aria-label="Remove">×</button>
+                              </li>
+                            ))}
+                            {items.length === 0 && (
+                              <li className="border-none"><div className="cart-product"><span>Your cart is empty</span></div></li>
+                            )}
+                          </>
+                        )}
                       </ul>
                       <div className="shopping-items d-flex align-items-center justify-content-between">
-                        <span>Shopping : $20.00</span>
-                        <span>Total : $168.00</span>
+                        <span>Items : {mounted ? items.reduce((s,i)=>s+i.quantity,0) : 0}</span>
+                        <span>Total : ${mounted ? subtotal.toFixed(2) : '0.00'}</span>
                       </div>
                       <div className="cart-button d-flex justify-content-between mb-4">
                         <Link href="/shop-cart" className="theme-btn">View Cart</Link>
@@ -126,6 +137,7 @@ const Header1 = () => {
                     </div>
                     <Link href="/shop-cart" className="cart-icon">
                       <i className="far fa-shopping-basket" />
+                      <span>{mounted ? itemCount : 0}</span>
                     </Link>
                   </div>
                   <div className="header-button">
@@ -405,7 +417,7 @@ const MobileMenu = () => {
                 Food Menu
                 <i className="fas fa-angle-down" />
               </Link>
-              <ul className="submenu" style={activeLi("shop")}>
+              <ul className="submenu" style={activeLi("shop-left-sidebar")}>
                 <li><Link href="/shop-left-sidebar">Food Categories</Link></li>
                 <li><Link href="/shop-list">Food Menu </Link></li>
                 

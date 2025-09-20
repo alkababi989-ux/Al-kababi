@@ -1,0 +1,112 @@
+// Prisma schema for Al-Kababi
+// Assumes DATABASE_URL is defined in .env
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // Neon is PostgreSQL
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id                 String   @id @default(cuid())
+  slug               String   @unique
+  name               String
+  description        String?
+
+  // Menu grouping
+  category           String   // e.g., "BBQ", "Gyro Wrap", "Fast Food"
+  subcategory        String?  // e.g., "Platter", "Roll", "Combo"
+  tags               String[] // e.g., ["halal","spicy","popular"]
+
+  // Pricing
+  price              Decimal  @db.Decimal(10,2)
+  salePrice          Decimal? @db.Decimal(10,2)
+  currency           String   @default("USD")
+
+  // Options for sizes or portion (e.g., S/M/L)
+  hasSizes           Boolean  @default(false)
+  sizeOptions        Json?    // e.g., {"S": 6.0, "M": 7.0, "L": 8.0}
+
+  // Add-ons (sauces, extra meat, rice, etc.)
+  addons             Json?    // free-form structured list of add-ons & prices
+
+  // Dietary & spice info
+  isHalal            Boolean  @default(true)
+  isVegetarian       Boolean  @default(false)
+  isVegan            Boolean  @default(false)
+  spiceLevel         Int?     // 0-5
+
+  // Media
+  imageUrl           String?
+  galleryUrls        String[]
+
+  // Operational
+  available          Boolean  @default(true)
+  sku                String?  @unique
+  prepTimeMinutes    Int?     // expected prep time
+
+  // Ratings
+  ratingAverage      Float    @default(0)
+  ratingCount        Int      @default(0)
+
+  // SEO
+  seoTitle           String?
+  seoDescription     String?
+
+  // Timestamps
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model Order {
+  id             String       @id @default(cuid())
+  orderNumber    String       @unique
+  customerName   String
+  customerPhone  String
+  customerEmail  String?
+  customerNotes  String?
+  status         OrderStatus  @default(PENDING)
+  subtotal       Decimal      @db.Decimal(10,2)
+  tax            Decimal      @db.Decimal(10,2)
+  total          Decimal      @db.Decimal(10,2)
+  currency       String       @default("USD")
+  paymentMethod  PaymentMethod @default(CASH)
+  items          OrderItem[]
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  productId   String?
+  productName String
+  productSlug String
+  imageUrl    String?
+  unitPrice   Decimal  @db.Decimal(10,2)
+  quantity    Int      @default(1)
+  addons      Json?
+  size        String?
+  lineTotal   Decimal  @db.Decimal(10,2)
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PREPARING
+  READY
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+  ONLINE
+}
+
+

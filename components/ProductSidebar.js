@@ -8,7 +8,7 @@ const ProductSidebar = ({
   style = "style-1",
 }) => {
   const [value, setValue] = useState([10, 30]);
-  const [openCat, setOpenCat] = useState(null); // which category accordion is open
+  const [openCat, setOpenCat] = useState(null); // deprecated (no accordion)
 
   // ===== Submenus (fill/adjust to exactly match your menu.pdf) =====
   const burgerItems = [
@@ -153,7 +153,11 @@ const ProductSidebar = ({
                 href={{
                   pathname: "/shop-left-sidebar",
                   query: {
-                    category: queryCategory || keyName,
+                    // Map sidebar slug to DB category text used in seeding
+                    category:
+                      (queryCategory || keyName)
+                        .replace(/-/g, " ")
+                        .replace(/\b\w/g, (m) => m.toUpperCase()),
                     ...(item !== "View all" ? { item } : {}),
                   },
                 }}
@@ -170,123 +174,46 @@ const ProductSidebar = ({
   return (
     <div className={className}>
       <div className={`main-sidebar ${style}`}>
-        {/* === CATEGORIES (all as accordions) === */}
+        {/* === CATEGORIES (flat clickable list) === */}
         <div className="single-sidebar-widget">
           <div className="wid-title">
             <h4>categories</h4>
           </div>
 
           <div className="widget-categories">
-            <ul className="category-accordion">
-              {renderAccordion({
-                keyName: "burger",
-                iconClass: "flaticon-burger",
-                label: "Burger",
-                items: burgerItems,
-                queryCategory: "burger",
-              })}
-
-              {renderAccordion({
-                keyName: "traditional",
-                iconClass: "flaticon-chicken",
-                label: "Traditional",
-                items: traditionalItems,
-                queryCategory: "traditional",
-              })}
-
-              {renderAccordion({
-                keyName: "tandoor",
-                iconClass: "flaticon-french-fries",
-                label: "Tandoor",
-                items: tandoorItems,
-                queryCategory: "tandoor",
-              })}
-
-              {renderAccordion({
-                keyName: "gyro-wrap",
-                iconClass: "flaticon-pizza",
-                label: "Gyro Wrap",
-                items: gyroWrapItems,
-                queryCategory: "gyro-wrap",
-              })}
-
-              {renderAccordion({
-                keyName: "salad-bar",
-                iconClass: "flaticon-sandwich",
-                label: "Salad Bar",
-                items: saladBarItems,
-                queryCategory: "salad-bar",
-              })}
-
-              {renderAccordion({
-                keyName: "beverages",
-                iconClass: "flaticon-bread",
-                label: "Beverages",
-                items: beveragesItems,
-                queryCategory: "beverages",
-              })}
-
-              {renderAccordion({
-                keyName: "fried-rice",
-                iconClass: "flaticon-rice",
-                label: "Fried Rice",
-                items: friedRiceItems,
-                queryCategory: "fried-rice",
-              })}
-
-              {renderAccordion({
-                keyName: "bbq",
-                iconClass: "flaticon-hotdog",
-                label: "BBQ",
-                items: bbqItems,
-                queryCategory: "bbq",
-              })}
-
-              {renderAccordion({
-                keyName: "gyro-combos",
-                iconClass: "flaticon-rice",
-                label: "Gyro Combos",
-                items: gyroCombosItems,
-                queryCategory: "gyro-combos",
-              })}
-
-              {renderAccordion({
-                keyName: "bbq-roll",
-                iconClass: "flaticon-rice",
-                label: "BBQ Roll",
-                items: bbqRollItems,
-                queryCategory: "bbq-roll",
-              })}
-
-              {renderAccordion({
-                keyName: "mediterranean",
-                iconClass: "flaticon-rice",
-                label: "Mediterranean",
-                items: mediterraneanItems,
-                queryCategory: "mediterranean",
-              })}
-
-              {renderAccordion({
-                keyName: "special-platter",
-                iconClass: "flaticon-rice",
-                label: "Special Platter",
-                items: specialPlatterItems,
-                queryCategory: "special-platter",
-              })}
-
-              {renderAccordion({
-                keyName: "bbq-platter",
-                iconClass: "flaticon-rice",
-                label: "BBQ Platter",
-                items: bbqPlatterItems,
-                queryCategory: "bbq-platter",
-              })}
+            <ul className="category-list">
+              {[
+                { label: "Traditional", value: "Traditional", icon: "flaticon-chicken" },
+                { label: "Fast Food", value: "Fast Food", icon: "flaticon-burger" },
+                { label: "Starter", value: "STARTER", icon: "flaticon-french-fries" },
+                { label: "Tandoor", value: "TANDOOR", icon: "flaticon-french-fries" },
+                { label: "Gyro Wrap", value: "GYRO WRAP", icon: "flaticon-pizza" },
+                { label: "Salad Bar", value: "SALAD BAR", icon: "flaticon-sandwich" },
+                { label: "Beverage", value: "Beverage", icon: "flaticon-bread" },
+                { label: "BBQ", value: "BBQ", icon: "flaticon-hotdog" },
+                { label: "Gyro Combos", value: "GYRO COMBOS", icon: "flaticon-rice" },
+                { label: "BBQ Roll", value: "BBQ ROLL", icon: "flaticon-rice" },
+                { label: "BBQ Platter", value: "BBQ PLATTER", icon: "flaticon-rice" },
+                { label: "Mediterranean", value: "Mediterranean", icon: "flaticon-rice" },
+                { label: "Special Platter", value: "Special Platter", icon: "flaticon-rice" },
+              ].map((c) => (
+                <li key={c.value}>
+                  <Link
+                    href={{ pathname: "/shop-left-sidebar", query: { category: c.value } }}
+                    scroll={false}
+                    className="category-link"
+                  >
+                    {c.icon ? <i className={c.icon} /> : null}
+                    <span>{c.label}</span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* tiny style touch for the toggle UX */}
+          {/* tiny style for clickable list */}
           <style jsx>{`
-            .category-accordion .has-dropdown > .category-toggle {
+            .category-list .category-link {
               background: transparent;
               border: 0;
               padding: 8px 0;
@@ -294,9 +221,7 @@ const ProductSidebar = ({
               text-align: left;
               font: inherit;
             }
-            .category-accordion .submenu li {
-              margin: 6px 0;
-            }
+            .category-list li { margin: 6px 0; }
           `}</style>
         </div>
 
@@ -329,12 +254,7 @@ const ProductSidebar = ({
                 <div className="field">
                   <span>${value[1]}</span>
                 </div>
-                <Link
-                  href="/shop-left-sidebar"
-                  className="theme-btn border-radius-none"
-                >
-                  Filter
-                </Link>
+                <Link href={{ pathname: "/shop-left-sidebar", query: { ...Object.fromEntries(new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')), minPrice: value[0], maxPrice: value[1] } }} scroll={false} className="theme-btn border-radius-none">Filter</Link>
               </div>
             </div>
           </div>
