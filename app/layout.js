@@ -15,6 +15,11 @@ import ClientWrapper from "@/components/ClientWrapper";
 export const metadata = {
   title: "Al-Kababi - Food Restaurant",
   description: "Fresh, flavorful halal meals—kebabs, grills, biryani & curries. Dine-in, takeaway & delivery. Order from Al-Kababi today.",
+  icons: {
+    icon: '/icon.ico',
+    shortcut: '/icon.ico',
+    apple: '/icon.ico',
+  },
 };
 
 export default function RootLayout({ children }) {
