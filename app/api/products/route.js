@@ -58,7 +58,12 @@ export async function GET(request) {
       headers: { "Content-Type": "application/json" },
     });
   } catch (e) {
-    return new Response(JSON.stringify({ error: "Failed to fetch products" }), { status: 500 });
+    console.error("Products API error:", e);
+    return new Response(JSON.stringify({ 
+      error: "Failed to fetch products",
+      message: e.message,
+      details: process.env.NODE_ENV === 'development' ? e.stack : undefined
+    }), { status: 500 });
   }
 }
 

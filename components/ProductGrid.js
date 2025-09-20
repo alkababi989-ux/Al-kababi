@@ -36,7 +36,12 @@ export default function ProductGrid() {
             const data = await res.json();
             if (!ignore) setItems(data.items || []);
           } else {
-            console.warn('Failed to fetch products:', res.status);
+            console.error('Failed to fetch products:', res.status);
+            // Try to get error details
+            try {
+              const errorData = await res.json();
+              console.error('API Error details:', errorData);
+            } catch {}
             if (!ignore) setItems([]);
           }
         } else {
@@ -61,7 +66,22 @@ export default function ProductGrid() {
   }
 
   if (!items.length) {
-    return <div className="row"><div className="col-12 text-center">No products found.</div></div>;
+    return (
+      <div className="row">
+        <div className="col-12 text-center">
+          <div className="alert alert-info">
+            <h5>No products found</h5>
+            <p>This could be due to:</p>
+            <ul className="list-unstyled">
+              <li>• Database connection issues</li>
+              <li>• No products match your filters</li>
+              <li>• Products are still loading</li>
+            </ul>
+            <small>Check the browser console for more details.</small>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
