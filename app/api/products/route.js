@@ -1,8 +1,15 @@
-import prisma from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
-
 export async function GET(request) {
   try {
+    // Check if DATABASE_URL is available during build
+    if (!process.env.DATABASE_URL) {
+      return new Response(JSON.stringify({ 
+        error: "Database not configured",
+        message: "DATABASE_URL environment variable is required" 
+      }), { status: 503 });
+    }
+
+    const { default: prisma } = await import("@/lib/prisma");
+    const { Prisma } = await import("@prisma/client");
     const { searchParams } = new URL(request.url);
     const q = searchParams.get("q") || undefined;
     const category = searchParams.get("category") || undefined;
@@ -57,6 +64,15 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
+    // Check if DATABASE_URL is available during build
+    if (!process.env.DATABASE_URL) {
+      return new Response(JSON.stringify({ 
+        error: "Database not configured",
+        message: "DATABASE_URL environment variable is required" 
+      }), { status: 503 });
+    }
+
+    const { default: prisma } = await import("@/lib/prisma");
     const body = await request.json();
     const { name, category, price, imageUrl, description } = body || {};
     if (!name || !category || typeof price !== "number") {
@@ -79,7 +95,11 @@ export async function POST(request) {
       headers: { "Content-Type": "application/json" },
     });
   } catch (e) {
-    return new Response(JSON.stringify({ error: "Failed to create product" }), { status: 500 });
+    console.error("Products API error:", e);
+    return new Response(JSON.stringify({ 
+      error: "Failed to create product",
+      message: e.message 
+    }), { status: 500 });
   }
 }
 

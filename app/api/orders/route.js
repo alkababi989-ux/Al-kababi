@@ -1,7 +1,14 @@
-import prisma from "@/lib/prisma";
-
 export async function GET() {
   try {
+    // Check if DATABASE_URL is available during build
+    if (!process.env.DATABASE_URL) {
+      return new Response(JSON.stringify({ 
+        error: "Database not configured",
+        message: "DATABASE_URL environment variable is required" 
+      }), { status: 503 });
+    }
+
+    const { default: prisma } = await import("@/lib/prisma");
     const orders = await prisma.order.findMany({
       include: { items: true },
       orderBy: { createdAt: "desc" },
@@ -11,12 +18,24 @@ export async function GET() {
       headers: { "Content-Type": "application/json" },
     });
   } catch (e) {
-    return new Response(JSON.stringify({ error: "Failed to fetch orders" }), { status: 500 });
+    console.error("Orders API error:", e);
+    return new Response(JSON.stringify({ 
+      error: "Failed to fetch orders",
+      message: e.message 
+    }), { status: 500 });
   }
 }
 
 export async function POST(request) {
   try {
+    // Check if DATABASE_URL is available during build
+    if (!process.env.DATABASE_URL) {
+      return new Response(JSON.stringify({ 
+        error: "Database not configured",
+        message: "DATABASE_URL environment variable is required" 
+      }), { status: 503 });
+    }
+
     const body = await request.json();
     const {
       customerName,
@@ -35,6 +54,7 @@ export async function POST(request) {
       return new Response(JSON.stringify({ error: "customerName, customerPhone and at least one item are required" }), { status: 400 });
     }
 
+    const { default: prisma } = await import("@/lib/prisma");
     const orderNumber = `AK-${Date.now()}`;
     const created = await prisma.order.create({
       data: {
