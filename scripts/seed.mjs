@@ -464,6 +464,7 @@ async function main() {
           price: String(item.price),
           category: item.category,
           imageUrl: item.imageUrl,
+          description: item.description || null,
           available: true,
           hasSizes: hasSizes,
           sizeOptions: item.sizeOptions ?? null,
@@ -473,7 +474,7 @@ async function main() {
         create: {
           slug,
           name: item.name,
-          description: null,
+          description: item.description || null,
           category: item.category,
           subcategory: null,
           tags: item.tags ?? [item.category.toLowerCase()],

@@ -3,13 +3,26 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/components/CartProvider";
 import { useSearchParams, useRouter } from "next/navigation";
+import ProductDetailModal from "@/components/ProductDetailModal";
 
 export default function ProductGrid() {
   const params = useSearchParams();
   const router = useRouter();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { add } = useCart();
+
+  const openModal = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedProduct(null), 300);
+  };
 
   const category = params.get("category") || undefined;
   const minPrice = params.get("minPrice") || undefined;
@@ -85,43 +98,64 @@ export default function ProductGrid() {
   }
 
   return (
-    <div className="row">
-      {items.map((p) => (
-        <div key={p.id} className="col-xl-4 col-lg-6 col-md-6">
-          <div className="catagory-product-card-2 shadow-style text-center">
-            <div className="icon">
-              <Link href="/shop-cart">
-                <i className="far fa-heart" />
-              </Link>
-            </div>
-            <div className="catagory-product-image">
-              <img src={p.imageUrl || "assets/img/food/burger-2.png"} alt={p.name} />
-            </div>
-            <div className="catagory-product-content">
-              <div className="catagory-button">
-                <button className="theme-btn-2" onClick={() => add(p, 1)}>
-                  <i className="far fa-shopping-basket" />
-                  Add To Cart
-                </button>
+    <>
+      <div className="row">
+        {items.map((p) => (
+          <div key={p.id} className="col-xl-4 col-lg-6 col-md-6">
+            <div className="catagory-product-card-2 shadow-style text-center">
+              <div className="icon">
+                <Link href="/shop-cart">
+                  <i className="far fa-heart" />
+                </Link>
               </div>
-              <div className="info-price d-flex align-items-center justify-content-center">
-                <h6>${Number(p.price).toFixed(2)}</h6>
+              <div className="catagory-product-image">
+                <img src={p.imageUrl || "assets/img/food/burger-2.png"} alt={p.name} />
               </div>
-              <h4>
-                <Link href={`/shop-single?slug=${p.slug}`}>{p.name}</Link>
-              </h4>
-              <div className="star">
-                <span className="fas fa-star" />
-                <span className="fas fa-star" />
-                <span className="fas fa-star" />
-                <span className="fas fa-star" />
-                <span className="fas fa-star color-bg" />
+              <div className="catagory-product-content">
+                <div className="catagory-button">
+                  <button className="theme-btn-2" onClick={() => add(p, 1)}>
+                    <i className="far fa-shopping-basket" />
+                    Add To Cart
+                  </button>
+                </div>
+                <div className="info-price d-flex align-items-center justify-content-center">
+                  <h6>${Number(p.price).toFixed(2)}</h6>
+                </div>
+                <h4
+                  onClick={() => openModal(p)}
+                  style={{
+                    cursor: "pointer",
+                    transition: "color 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = "#bf1e2e";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = "";
+                  }}
+                >
+                  {p.name}
+                </h4>
+                <div className="star">
+                  <span className="fas fa-star" />
+                  <span className="fas fa-star" />
+                  <span className="fas fa-star" />
+                  <span className="fas fa-star" />
+                  <span className="fas fa-star color-bg" />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+
+      {/* Product Detail Modal */}
+      <ProductDetailModal
+        product={selectedProduct}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
+    </>
   );
 }
 
