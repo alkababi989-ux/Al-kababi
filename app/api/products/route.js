@@ -1,7 +1,7 @@
 export async function GET(request) {
   try {
     // Check if DATABASE_URL is available during build
-    if (!process.env.DATABASE_URL) {
+    if (!process.env.POSTGRES_PRISMA_URL) {
       return new Response(JSON.stringify({ 
         error: "Database not configured",
         message: "DATABASE_URL environment variable is required" 
