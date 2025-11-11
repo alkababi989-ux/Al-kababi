@@ -3,7 +3,7 @@ export const runtime = 'nodejs';
 export async function GET() {
   try {
     // Check if DATABASE_URL is available during build
-    if (!process.env.DATABASE_URL) {
+    if (!process.env.POSTGRES_PRISMA_URL) {
       return new Response(JSON.stringify({ 
         error: "Database not configured",
         message: "DATABASE_URL environment variable is required" 
@@ -31,7 +31,7 @@ export async function GET() {
 export async function POST(request) {
   try {
     // Check if DATABASE_URL is available during build
-    if (!process.env.DATABASE_URL) {
+    if (!process.env.POSTGRES_PRISMA_URL) {
       return new Response(JSON.stringify({ 
         error: "Database not configured",
         message: "DATABASE_URL environment variable is required" 

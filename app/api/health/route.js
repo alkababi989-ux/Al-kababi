@@ -1,7 +1,7 @@
 export async function GET() {
   try {
     // Check environment variables
-    const hasDbUrl = !!process.env.DATABASE_URL;
+    const hasDbUrl = !!process.env.POSTGRES_PRISMA_URL;
     
     let dbStatus = "not_configured";
     let dbError = null;
